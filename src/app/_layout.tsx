@@ -1,5 +1,10 @@
-import { Slot } from 'expo-router';
+import { AuthProvider } from "../context/AuthContext";
+import { Slot } from "expo-router";
 
 export default function RootLayoutNav() {
-  return <Slot />
-};
+  return (
+    <AuthProvider>
+      <Slot />
+    </AuthProvider>
+  );
+}

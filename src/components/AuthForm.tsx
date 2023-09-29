@@ -1,10 +1,11 @@
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { useForm, Controller } from "react-hook-form";
-import { IUser } from 'types/user';
+import { IUser } from '../types/user';
 
 interface AuthFormProps {
     headerText: string;
-    onSubmit: () => void;
+    onSubmit: (userReq: IUser) => void;
+    errorMessage: string;
     submitButtonText: string;
 }
 
@@ -13,7 +14,7 @@ const defaultUser: IUser = {
     password: ''
 }
 
-const AuthForm = ({ headerText, onSubmit, submitButtonText }: AuthFormProps) => {
+const AuthForm = ({ headerText, onSubmit, errorMessage, submitButtonText }: AuthFormProps) => {
     const { control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: defaultUser
     });
@@ -62,6 +63,8 @@ const AuthForm = ({ headerText, onSubmit, submitButtonText }: AuthFormProps) => 
                 name="password"
             />
             {errors.password && <Text style={styles.errorText}>Password is required.</Text>}
+
+            {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
 
             <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)}>
                 <Text style={styles.buttonText}>{submitButtonText}</Text>

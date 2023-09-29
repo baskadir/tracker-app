@@ -1,5 +1,12 @@
-import { Redirect } from "expo-router"
+import { useEffect } from "react";
+import { useAuth } from "../context/AuthContext"
 
 export default () => {
-    return <Redirect href={'/(auth)/sign-up'} />
+    const { tryLocalSignIn } = useAuth();
+
+    useEffect(() => {
+        tryLocalSignIn();
+    }, []) 
+
+    return null;
 }
