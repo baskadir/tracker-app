@@ -4,10 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { TextInput } from "react-native-gesture-handler";
 import { changeName, reset, startRecording, stopRecording } from "../redux/features/location/locationSlice";
+import useSavePath from "../hooks/useSavePath";
 
 const PathForm = () => {
   const { name, recording, locations } = useSelector((state: RootState) => state.location);
   const dispatch = useDispatch();
+
+  const [savePath] = useSavePath();
 
   const Button = ({title, onPress} : {title: string, onPress: () => void}) => {
     return (
@@ -34,7 +37,7 @@ const PathForm = () => {
         }
         {
             (!recording && locations.length) ? (
-                <Button title="Save Track" onPress={() => dispatch(reset())} />
+                <Button title="Save Track" onPress={savePath} />
             ) : null
         }
     </>

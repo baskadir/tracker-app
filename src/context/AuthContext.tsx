@@ -10,6 +10,7 @@ import {
 } from "./context.types";
 import { getFromStorage, removeFromStorage, saveToStorage } from "../helpers/storage";
 import Constants from "../constants";
+import { AxiosResponse } from "axios";
 
 const initialValues: IAuthState = {
   token: null,
@@ -48,7 +49,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const signUp = async (userRequest: IUser) => {
     try {
-      const response = await pathsApi.post("/sign-up", userRequest);
+      const response: AxiosResponse<{token: string}> = await pathsApi.post("/sign-up", userRequest);
       await saveToStorage(Constants.STORAGE_AUTH_KEY, response.data.token);
       dispatch({
         type: AuthActionType.USER_AUTH,
@@ -65,7 +66,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const signIn = async (userRequest: IUser) => {
     try {
-      const response = await pathsApi.post("/sign-in", userRequest);
+      const response: AxiosResponse<{token: string}> = await pathsApi.post("/sign-in", userRequest);
       await saveToStorage(Constants.STORAGE_AUTH_KEY, response.data.token);
       dispatch({
         type: AuthActionType.USER_AUTH,

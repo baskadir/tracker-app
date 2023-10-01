@@ -1,3 +1,4 @@
+import { IPath } from "../types/path";
 import { IUser } from "../types/user";
 
 export enum AuthActionType {
@@ -24,4 +25,21 @@ export interface IAuthContextState {
     signOut: () => void;
     tryLocalSignIn: () => void;
     clearErrorMessage: () => void;
+}
+
+export enum PathActionType {
+    FETCH_PATHS = "FETCH_PATHS"
+}
+
+export interface IPathAction {
+    type: string;
+    payload: Array<IPath>
+}
+
+export type IPathState = Array<IPath>;
+
+export interface IPathContextState {
+    path: IPathState;
+    fetchPaths: () => void;
+    createPath: (path: IPath) => void;
 }
