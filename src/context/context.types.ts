@@ -39,7 +39,7 @@ export interface IPathAction {
 export type IPathState = Array<IPath>;
 
 export interface IPathContextState {
-    path: IPathState;
+    paths: IPathState;
     fetchPaths: () => void;
     createPath: (path: IPath) => void;
 }
